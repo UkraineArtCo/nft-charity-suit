@@ -214,12 +214,11 @@ const App = () => {
 
 						const contract = new ethers.Contract(POLYGON_CONTRACT_ADDRESS, polygonContractAbi.abi, signer);
 		
-						const resPin = await pinataPinFileToIPFS();
-						console.log("resPin:", resPin);
-						// const tokenURI = "ipfs://" + resIpfshash;
-						console.log("file.name:", file.name);
-						// const tokenURI = "https://ipfs.io/ipfs/" + resPin.ipfshash + "/?filename=" + resPin.filename;
-						const tokenURI = "https://ipfs.io/ipfs/" + resPin.ipfshash;
+						// const resPin = await pinataPinFileToIPFS();
+						// console.log("resPin:", resPin);
+						// console.log("file.name:", file.name);
+
+						const tokenURI = "https://ipfs.io/ipfs/" + "QmYuRPiEtPFK7U9VmAkdxSbagkFhqqcmnpJtpmATLmVHFD";
 						console.log("tokenURI:", tokenURI);
 						console.log("Going to pop wallet now to pay gas...")
 						try {
