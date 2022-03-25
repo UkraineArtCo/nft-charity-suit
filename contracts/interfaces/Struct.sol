@@ -6,4 +6,9 @@ contract Struct {
         uint indexed tokenId,
         address owner
     );
+    
+    struct MarketItem {
+        uint itemId;
+        uint price;
+    }
 }
