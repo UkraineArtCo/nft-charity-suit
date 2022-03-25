@@ -12,8 +12,9 @@ import axios from 'axios';
 import {Buffer} from 'buffer';
 import { number } from "prop-types";
 
+
 // Constants
-const POLYGON_CONTRACT_ADDRESS = '0xB7138E08787c21574f832a50E8E067D2F01505e7';
+const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
 const Server = PNG_server == "http://localhost"? PNG_server + ":" + PNG_port : PNG_server;
@@ -167,25 +168,44 @@ const App = () => {
 		return {success: success};
 	}
 
-	// Implement your connectWallet method here
-	const connectWallet = async () => {
-		try {
-			const { ethereum } = window;
+	const getNFTCID = async () => {
 
-			if (!ethereum) {
-				alert("Get MetaMask -> https://metamask.io/");
-				return;
-			}
-
-			// Fancy method to request access to account.
-			const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+		// var success, totalLeft, NFTid, CID;
+		return await axios.get(Server+'/getMeta')
+		.then(function (response) {
+			console.log("response.data:", response.data);
+			return {success: true, totalLeft: response.data.totalLeft, NFTid: response.data.NFTid, CID: response.data.CID};
+		})
+		.catch(function (error) {
+			setErrorMessage('Could not get NFT data, your funds were not affected. Try again...');
+			return {success: false, totalLeft: "", NFTid: "", CID: ""};
+		});
 		
-			// Boom! This should print out public address once we authorize Metamask.
-			console.log("Connected", accounts[0]);
-			setCurrentAccount(accounts[0]);
-		} catch (error) {
-			console.log(error)
-		}
+	}
+
+	const revertMeta = async (NFTid_, NFTcid_) => {
+
+		return await axios.get(Server+'/revertMeta/id/:' + NFTid_ + '/CID/:' + NFTcid_)
+		.then(function (response) {
+			return response.data;
+		})
+		.catch(function (error) {
+			//
+		});
+		
+	}
+
+	const getNFTMeta = async (CID_) => {
+
+		return await axios.get('https://ipfs.io/ipfs/' + CID_ + '/metadata.json')
+		.then(function (response) {
+			console.log("response:", response);
+			return response.data;
+		})
+		.catch(function (error) {
+			setErrorMessage('Could not get NFT data, your funds were not affected. Try again...');
+		});
+		
 	}
 
 	const donateAmount = async () => {
@@ -214,15 +234,17 @@ const App = () => {
 
 						const contract = new ethers.Contract(POLYGON_CONTRACT_ADDRESS, polygonContractAbi.abi, signer);
 		
-						// const resPin = await pinataPinFileToIPFS();
-						// console.log("resPin:", resPin);
-						// console.log("file.name:", file.name);
+						const resNFT = await getNFTCID();
+						console.log("totalLeft:", resNFT.totalLeft);
+						console.log("NFTid:", resNFT.NFTid);
+						console.log("CID:", resNFT.CID);
 
-						const tokenURI = "https://ipfs.io/ipfs/" + "QmYuRPiEtPFK7U9VmAkdxSbagkFhqqcmnpJtpmATLmVHFD";
-						console.log("tokenURI:", tokenURI);
-						console.log("Going to pop wallet now to pay gas...")
+						const NFTMeta = await getNFTMeta(resNFT.CID);
+						console.log("NFTMeta:", NFTMeta, typeof(NFTMeta));
+
+						console.log("Going to pop wallet now to pay gas...");
 						try {
-							let tx = await contract.mintNFT(tokenURI, {value: ethers.utils.parseEther(amount)});
+							let tx = await contract.mintNFT(JSON.stringify(NFTMeta), {value: ethers.utils.parseEther(amount)});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
 							console.log("receipt:", receipt);	
@@ -230,6 +252,8 @@ const App = () => {
 							console.log("error", error);
 							console.log("message", error.data.message);
 							setErrorMessage(error.data.message);
+							const resRev = await revertMeta(resNFT.NFTid, resNFT.CID);
+							console.log("resRev:", resRev);
 						}
 
 					} else {
@@ -249,6 +273,27 @@ const App = () => {
 			// // Boom! This should print out public address once we authorize Metamask.
 			// console.log("Connected", accounts[0]);
 			// setCurrentAccount(accounts[0]);
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	// Implement your connectWallet method here
+	const connectWallet = async () => {
+		try {
+			const { ethereum } = window;
+
+			if (!ethereum) {
+				alert("Get MetaMask -> https://metamask.io/");
+				return;
+			}
+
+			// Fancy method to request access to account.
+			const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+		
+			// Boom! This should print out public address once we authorize Metamask.
+			console.log("Connected", accounts[0]);
+			setCurrentAccount(accounts[0]);
 		} catch (error) {
 			console.log(error)
 		}
@@ -299,14 +344,6 @@ const App = () => {
 	const renderInputForm = () =>{
 		return (
 			<div className="form-container">
-				<div className="first-row">
-					<input
-						type="text"
-						value={name}
-						placeholder='enter your name'
-						onChange={e => setName(e.target.value)}
-					/>
-				</div>
 				<div className="first-row">
 					<input
 						type="text"
