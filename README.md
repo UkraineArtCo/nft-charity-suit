@@ -12,6 +12,6 @@ Charitable NFT sales
 - Solidity
 - JavaScript
 
-### GitBook
+### GitBook Link
 https://rovor7.gitbook.io/ukraineartco/
 
