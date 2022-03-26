@@ -240,11 +240,13 @@ const App = () => {
 						console.log("CID:", resNFT.CID);
 
 						const NFTMeta = await getNFTMeta(resNFT.CID);
-						console.log("NFTMeta:", NFTMeta, typeof(NFTMeta));
+						const NFTMetaStr = JSON.stringify(NFTMeta);
+						// console.log("NFTMeta:", NFTMeta, typeof(NFTMeta));
+						console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
 
 						console.log("Going to pop wallet now to pay gas...");
 						try {
-							let tx = await contract.mintNFT(JSON.stringify(NFTMeta), {value: ethers.utils.parseEther(amount)});
+							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(amount)});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
 							console.log("receipt:", receipt);	
