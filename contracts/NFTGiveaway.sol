@@ -21,7 +21,7 @@ contract UkraineArtCoNFT is ERC1155, Ownable, Struct {
     }
 
     function mint(string memory tokenUri) public payable returns (uint256) {
-        require(msg.value >= 1, "Minimum 1 Matic is not met.");
+        require(msg.value > 1, "Minimum 1 Matic is not met.");
 
 		// Create the JSON metadata of our NFT. We do this by combining strings and encoding as base64
         string memory json = Base64.encode(
