@@ -14,7 +14,8 @@ import { number } from "prop-types";
 
 
 // Constants
-const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
+const POLYGON_CONTRACT_ADDRESS = '0xe2ec448C8E623c0C9C5D35CAeF6Ff553353D0d87';
+// const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
 const Server = PNG_server == "http://localhost"? PNG_server + ":" + PNG_port : PNG_server;
@@ -243,10 +244,12 @@ const App = () => {
 						const NFTMetaStr = JSON.stringify(NFTMeta);
 						// console.log("NFTMeta:", NFTMeta, typeof(NFTMeta));
 						console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
+						const tokenURI = NFTMeta["image"];
+						console.log("tokenURI:", tokenURI);
 
 						console.log("Going to pop wallet now to pay gas...");
 						try {
-							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(amount)});
+							let tx = await contract.mintNFT(tokenURI, {value: ethers.utils.parseEther(amount)});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
 							console.log("receipt:", receipt);	
