@@ -391,11 +391,11 @@ const App = () => {
 				</div>
 				<div className="center">
 						<p className="title">Ukraine Art Collective</p>
-						<p className="subtitle">Donate</p>
+						<p className="subtitle">Harnessing global creative power to support the Ukrainian people.</p>
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}
 						{currentAccount && renderInputForm()}
-						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="" /> */}
+						<p className="description"> Net proceeds will be donated directly to causes supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
 					</div>
 				{errorMessage && 
 				(<p className="isa_error"> {errorMessage} </p>)}
