@@ -11,15 +11,13 @@ p {
 }
 
 .container {
-  height: 100%;
-  background-color: #000000;
-    width: 100%;
-  position: absolute;
-  top: 0;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url(../assets/images/nft-ukraine-illustration.png);
+  background: #000000 url(../assets/images/nft-ukraine-illustration.png) 50% 50% /cover;
 }
 
 .header-container {
@@ -30,11 +28,11 @@ header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px 10px 10px 10px;
+  padding: 0 5vw;
 }
 
 .title {
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-size: 35px;
   font-weight: bold;
   color: rgb(0, 0, 0);
@@ -43,11 +41,11 @@ header{
 .subtitle {
   font-size: 25px;
   color: rgb(0, 0, 0);
+  margin: 0 0 1rem 0;
 }
 
 .left{
   text-align: left;
-  margin-left: 10%;
 }
 
 .logo{
@@ -59,20 +57,23 @@ header{
 .right{
   display: flex;
   background: black;
-  border-radius: 16px;
+  border-radius: 10px;
   padding: 12px 20px;
-  height: 99%;
-  margin-right: 10%;
-  margin-top: 10px;
 }
 
 .center{
-  text-align: center;
   display: flex;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+  border-radius: 1vw;
+  position: absolute;
+  top: 50%;
+  left: 5vw;
+  transform: translateY(-50%);
+  padding: 5vh 2vw;
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.25);
 }
 
 .content-container {
@@ -122,7 +123,7 @@ header{
   font-size: 18px;
   background-size: 400% 400%;
   animation: gradient-animation 4s ease infinite;
-  margin: 50px 10px;
+  /* margin: 50px 10px; */
   border-radius: 20px;
   padding: 0px 2rem;
 }
@@ -131,6 +132,7 @@ header{
   background: #03dab6;
   color: rgb(209, 209, 209);
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 .mint-row{
@@ -177,25 +179,28 @@ header{
   width: 100%;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  margin: 2rem 0 0 0;
 }
 
 input{
   border: 0;
   border-radius: 12px;
-  background-color: black;
-  color: white;
+  background-color: #f0f0f0;
+  color: rgb(0, 0, 0);
   letter-spacing: 1px;
   font-size: 26px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   margin-bottom: 10px;
   padding: 10px 20px;
   text-align: center;
+  border:1px solid #ddd;
+
 }
 
 input::placeholder {
-  color: gray;
-  letter-spacing: 2px;
+  color: rgba(0,0,0,0.15);
 }
 
 input:focus {
@@ -335,4 +340,19 @@ input:focus {
       margin:10px 22px;
       font-size:2em;
       vertical-align:middle;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .center{
+      left:5px;
+      right:5px;
+    }
+
+    input{
+      max-width: none;
+    }
+
+    header{
+      padding: 0 5px;
+    }
   }

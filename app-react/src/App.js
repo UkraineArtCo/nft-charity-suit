@@ -353,7 +353,7 @@ const App = () => {
 					<input
 						type="text"
 						value={amount}
-						placeholder='enter amount'
+						placeholder='Enter Amount'
 						onChange={e => setAmount(e.target.value)}
 					/>
 				</div>
@@ -381,27 +381,22 @@ const App = () => {
        
 				<div className="header-container">
 					<header>
-					<div className="left">
-					</div>
-					<div className="right">
-						<img alt="Network logo" className="logo" src={ network.includes("Polygon") ? polygonLogo : ethLogo} />
-						{ currentAccount ? <p> Wallet: {currentAccount.slice(0, 6)}...{currentAccount.slice(-4)} </p> : <p> Not connected </p> }
-					</div>				
-					</header>
-
-
-					<div className="center">
+						<div className="left">
+						</div>
+						<div className="right">
+							<img alt="Network logo" className="logo" src={ network.includes("Polygon") ? polygonLogo : ethLogo} />
+							{ currentAccount ? <p> Wallet: {currentAccount.slice(0, 6)}...{currentAccount.slice(-4)} </p> : <p> Not connected </p> }
+						</div>				
+					</header>							
+				</div>
+				<div className="center">
 						<p className="title">Ukraine Art Collective</p>
 						<p className="subtitle">Donate</p>
-					
+						{/* Hide the connect button if currentAccount isn't empty*/}
+						{!currentAccount && renderNotConnectedContainer()}
+						{currentAccount && renderInputForm()}
 						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="" /> */}
-							</div>
-
-							
-				</div>
-				{/* Hide the connect button if currentAccount isn't empty*/}
-				{!currentAccount && renderNotConnectedContainer()}
-				{currentAccount && renderInputForm()}
+					</div>
 				{errorMessage && 
 				(<p className="isa_error"> {errorMessage} </p>)}
 
