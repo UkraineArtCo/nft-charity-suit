@@ -41,25 +41,8 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct {
 
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
-
-		// Create the JSON metadata of our NFT. We do this by combining strings and encoding as base64
-        string memory json = Base64.encode(
-            bytes(
-                string(
-                    abi.encodePacked(
-                        '{"description": "UkraineArtCo donation", "image": "',
-                        tokenURI,
-                        '"}'
-                    )
-                )
-            )
-        );
-
-        string memory finalTokenUri = string(abi.encodePacked("data:application/json;base64,", json));
-
         _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, finalTokenUri);
-        marketItems[newItemId] = MarketItem(newItemId, msg.value);
+        _setTokenURI(newItemId, tokenURI);
         emit MarketItemSold(newItemId, msg.sender);
 
         return newItemId;
