@@ -399,7 +399,7 @@ const App = () => {
 					</header>							
 				</div>
 				<div className="center">
-						<p className="title">Ukraine Art Collective</p>
+						<div className="title"><p className="blue">Ukraine</p><p className="yellow">Art</p><p className="yellow">Collective</p></div>
 						<p className="subtitle">Harnessing global creative power to support the Ukrainian people.</p>
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}

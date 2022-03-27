@@ -39,6 +39,21 @@ header{
   font-size: 38px;
   font-weight: bold;
   color: rgb(0, 0, 0);
+  display: flex;
+}
+
+.title p{
+  padding: 10px 5px;
+}
+
+.title .blue{
+  color: #005BC2;
+  background-color:#ffd633;
+}
+
+.title .yellow{
+  color:#ffd633;
+  background-color: #005BC2;
 }
 
 .subtitle {
@@ -89,8 +104,9 @@ header{
   left: 5vw;
   transform: translateY(-50%);
   padding: 5vh 2vw 1vh 2vw;
-  box-shadow: 10px 10px 10px rgba(0,0,0,0.25);
+  box-shadow: 5px 10px 15px rgba(0,0,0,0.25);
   backdrop-filter: blur(15px);
+  border: 1px solid #dadada;
 }
 
 .content-container {
@@ -137,13 +153,17 @@ header{
 }
 
 .mint-button {
-  background: -webkit-linear-gradient(left, #04e09e, #03dd94);
+  background: -webkit-linear-gradient(left,#005BC1, #3688ec);
   font-size: 18px;
   background-size: 400% 400%;
-  animation: gradient-animation 4s ease infinite;
+  animation: gradient-animation 3s ease infinite;
   /* margin: 50px 10px; */
-  border-radius: 1vw;
+  border-radius: 0.5vw;
   padding: 0px 2rem;
+}
+
+.mint-button:hover{
+  color: #f9c900;
 }
 
 .mint-button:disabled{
@@ -203,9 +223,9 @@ header{
 
 input{
   border: 0;
-  border-radius: 1vw;
+  border-radius: 0.5vw;
   background-color: #fafafa;
-  color: rgb(0, 0, 0);
+  color: #333;
   letter-spacing: 1px;
   font-size: 26px;
   width: 100%;
