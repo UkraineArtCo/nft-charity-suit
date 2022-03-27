@@ -9,7 +9,7 @@ import { networks } from './utils/networks';
 
 import FormData from 'form-data';
 import axios from 'axios';
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 import { number } from "prop-types";
 
 import bpic from './assets/images/nft-ukraine-illustration.png'
@@ -406,14 +406,10 @@ const App = () => {
 					</div>				
 					</header>
 
-
 					<div className="center">
 						<p className="title">Ukraine Art Collective</p>
 						<p className="subtitle">Donate</p>
-					
-						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="" /> */}
-							</div>
-
+					</div>
 							
 				</div>
 				{/* Hide the connect button if currentAccount isn't empty*/}
