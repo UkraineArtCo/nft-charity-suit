@@ -32,6 +32,7 @@ const App = () => {
 	const [amount, setAmount] = useState('');
   	const [currentAccount, setCurrentAccount] = useState('');
 	const [network, setNetwork] = useState('');
+	const [bg, setBg] = useState('');
 	// Add file state
 	const [file, setFile] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
@@ -351,8 +352,10 @@ const App = () => {
 			<div className="form-container">
 				<div className="first-row">
 					<input
-						type="text"
+						type="number"
 						value={amount}
+						min="0"
+						step="0.1"
 						placeholder='Enter Amount'
 						onChange={e => setAmount(e.target.value)}
 					/>
@@ -369,16 +372,22 @@ const App = () => {
 		);
 	}
 
+	const randomizeBg = () =>{
+		const images = require.context(`./assets/images/bg/`);
+		const bgIndex = Math.floor(Math.random()*images.keys().length);
+		import(`./assets/images/bg/${images.keys()[bgIndex].replace('./','')}`).then(image => {
+			setBg(image.default);
+		});
+	}
+
 	useEffect(() => {
+		randomizeBg();
 		checkIfWalletIsConnected();
 	}, []);
 
 	return (
 		<div className="App">
-			<div className="container">
-			
-       
-       
+			<div className="container" style={{background: `url(${bg}) 50% 50% /cover #000000`}}>
 				<div className="header-container">
 					<header>
 						<div className="left">

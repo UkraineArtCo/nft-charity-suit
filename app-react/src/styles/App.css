@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;700&display=swap');
+
 .App {
   height: 100vh;
   background-color: #0d1116;
   text-align: center;
   color: white;
-  
+  font-family: 'League Spartan', sans-serif;
 }
 
 p {
@@ -34,22 +36,24 @@ header{
 
 .title {
   margin: 0 0 1rem 0;
-  font-size: 35px;
+  font-size: 38px;
   font-weight: bold;
   color: rgb(0, 0, 0);
 }
 
 .subtitle {
-  font-size: 22px;
-  color: rgb(0, 0, 0);
+  font-size: 24px;
+  color: rgba(0, 0, 0,0.75);
   margin: 0 0 1rem 0;
   max-width: 400px;
   width: 100%;
+  line-height:30px;
 }
 
 .description {
-  font-size: 14px;
-  color: #aaa;
+  font-size: 18px;
+  line-height: 20px;
+  color: rgba(0,0,0,0.6);
   margin: 0 0 1rem 0;
   max-width: 400px;
   width: 100%;
@@ -70,6 +74,7 @@ header{
   background: black;
   border-radius: 10px;
   padding: 12px 20px;
+  align-items: center;
 }
 
 .center{
@@ -135,7 +140,7 @@ header{
   background-size: 400% 400%;
   animation: gradient-animation 4s ease infinite;
   /* margin: 50px 10px; */
-  border-radius: 20px;
+  border-radius: 1vw;
   padding: 0px 2rem;
 }
 
@@ -196,7 +201,7 @@ header{
 
 input{
   border: 0;
-  border-radius: 12px;
+  border-radius: 1vw;
   background-color: #f0f0f0;
   color: rgb(0, 0, 0);
   letter-spacing: 1px;
@@ -207,6 +212,7 @@ input{
   padding: 10px 20px;
   text-align: center;
   border:1px solid #ddd;
+  font-weight: bold;
 
 }
 
@@ -377,5 +383,9 @@ input:focus {
 
     header{
       padding: 0 5px;
+    }
+
+    .mint-button{
+      width: 100%;
     }
   }
