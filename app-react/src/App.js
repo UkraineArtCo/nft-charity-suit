@@ -9,7 +9,7 @@ import { networks } from './utils/networks';
 
 import FormData from 'form-data';
 import axios from 'axios';
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 import { number } from "prop-types";
 
 import bpic from './assets/images/nft-ukraine-illustration.png'
@@ -17,6 +17,7 @@ import bpic from './assets/images/nft-ukraine-illustration.png'
 
 
 // Constants
+const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
 const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -37,6 +38,7 @@ const App = () => {
 	const [file, setFile] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [ipfshash, setIpfshash] = useState('');
+	const [tokenViewURL, setTokenViewURL] = useState();
 
 	const pinataPinFileToIPFS = async () =>{
 
@@ -253,7 +255,9 @@ const App = () => {
 							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(amount)});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
-							console.log("receipt:", receipt);	
+							console.log("receipt:", receipt);
+							console.log("receipt id:", receipt["logs"]["1"]["topics"]["3"], parseInt(receipt["logs"]["1"]["topics"]["3"], 16));
+							setTokenViewURL(OPENSEA_URL+POLYGON_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["1"]["topics"]["3"], 16)));
 						} catch (error) {
 							console.log("error", error);
 							console.log("message", error.data.message);
@@ -366,6 +370,19 @@ const App = () => {
 					<button className='cta-button mint-button' onClick={donateAmount}>
 						Donate
 					</button>
+				</div>
+
+			</div>
+		);
+	}
+	// Form to enter domain name and data
+	const renderOpenseaView = () =>{
+		return (
+			<div className="form-container">
+				<div className="first-row">
+				<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
+					View your NFT on OpenSea
+				</a>
 				</div>
 
 			</div>
