@@ -12,8 +12,7 @@ import "./interfaces/Struct.sol";
 import {StringUtils} from "./libraries/StringUtils.sol";
 import {Base64} from "./libraries/Base64.sol";
 
-// ERC721Royalty
-contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct {
+contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct, ERC721Royalty {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     address public firstBayer;
@@ -24,15 +23,7 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct {
         charityDestinationWallet = payable(0x2c3108dA62edd2835F4B5E471Af6401f0990Dadc);
     }
 
-    function setTokenRoyalty(
-        uint256 tokenId,
-        address recipient,
-        uint96 fraction
-    ) public {
-        // _setTokenRoyalty(tokenId, recipient, fraction);
-    }
-
-    function mintNFT(string memory tokenURI) public payable returns (uint256) {
+    function mintNFT(string memory tokenUri) public payable returns (uint256) {
         require(msg.value >= 1, "Minimum 1 Matic is not met");
 
         if (_tokenIds.current() == 0) {
@@ -44,8 +35,8 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct {
             bytes(
                 string(
                     abi.encodePacked(
-                        '{"description": "UkraineArtCo donation", "image": "',
-                        tokenURI,
+                        '{"description": "UkraineArtCo Donation..", "image": "',
+                        tokenUri,
                         '"}'
                     )
                 )
@@ -58,11 +49,37 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct {
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
         _setTokenURI(newItemId, finalTokenUri);
+        _setTokenRoyalty(newItemId, charityDestinationWallet, 10);
         marketItems[newItemId] = MarketItem(newItemId, msg.value);
-        setTokenRoyalty(newItemId, charityDestinationWallet, 50);
+
         emit MarketItemSold(newItemId, msg.sender);
         charityDestinationWallet.transfer(msg.value);
 
         return newItemId;
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage) returns (string memory) {
+      return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC721, ERC721Royalty)
+        returns (bool)
+    {
+      return super.supportsInterface(interfaceId);
+    }
+
+    function _burn(uint256 tokenId)
+        internal
+        view
+        virtual
+        override(ERC721Royalty, ERC721URIStorage) {
+        _burn(tokenId);
     }
 }
