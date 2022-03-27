@@ -1,7 +1,7 @@
-## Charity NFT giveaway project
+## UkraineArtCo 
 
 ### Idea
-- Give peoples opportunity to donate to Ukraine.
+Charitable NFT sales
 
 ### Tools
 - IPFS
@@ -12,12 +12,6 @@
 - Solidity
 - JavaScript
 
-### Simple NFT interface
-`
-- Snapshot: {
-    - "image": "https://help-ukraine.nft/ipfs/bafybeiemujwz7cxabcpdzhjhkdabvzy4uuseidzxun2tafh47vphqfonnu",
-    - "tokenId": NaN,
-    - "name": "1646866821792_mynft",
-    - "attributes": "[]"
-- }
-`
+### GitBook Link
+https://rovor7.gitbook.io/ukraineartco/
+

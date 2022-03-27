@@ -25,6 +25,7 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct, ERC721Royalty {
     function mintNFT(string memory tokenUri) public payable returns (uint256) {
         require(msg.value >= 1, "Minimum 1 Matic is not met");
 
+<<<<<<< HEAD
 		// Create the JSON metadata of our NFT. We do this by combining strings and encoding as base64
         string memory json = Base64.encode(
             bytes(
@@ -39,16 +40,24 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct, ERC721Royalty {
         );
 
         string memory finalTokenUri = string(abi.encodePacked("data:application/json;base64,", json));
+=======
+        if (_tokenIds.current() == 0) {
+            firstBayer = msg.sender;
+        }
+>>>>>>> c54289892ab802cf503b9b41f0967362cbc51956
 
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
+<<<<<<< HEAD
         _setTokenURI(newItemId, finalTokenUri);
         _setTokenRoyalty(newItemId, charityDestinationWallet, 10);
         marketItems[newItemId] = MarketItem(newItemId, msg.value);
 
+=======
+        _setTokenURI(newItemId, tokenURI);
+>>>>>>> c54289892ab802cf503b9b41f0967362cbc51956
         emit MarketItemSold(newItemId, msg.sender);
-        charityDestinationWallet.transfer(msg.value);
 
         return newItemId;
     }

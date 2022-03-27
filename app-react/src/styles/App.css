@@ -3,6 +3,7 @@
   background-color: #0d1116;
   text-align: center;
   color: white;
+  
 }
 
 p {
@@ -11,10 +12,14 @@ p {
 
 .container {
   height: 100%;
-  background-color: #03d5fa;
+  background-color: #000000;
+    width: 100%;
+  position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-image: url(../assets/images/nft-ukraine-illustration.png);
 }
 
 .header-container {
@@ -32,12 +37,12 @@ header{
   margin: 0;
   font-size: 35px;
   font-weight: bold;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .subtitle {
   font-size: 25px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .left{
@@ -101,29 +106,29 @@ header{
 .connect-wallet-button {
   background-image: linear-gradient(
     to right,
-    #ff8177 0%,
-    #ff867a 0%,
-    #ff8c7f 21%,
-    #f99185 52%,
-    #cf556c 78%,
-    #b12a5b 100%
+    #77faff 0%,
+    #7affde 0%,
+    #05e299 21%,
+    #03e762 52%,
+    #50c900 78%,
+    #15ff00 100%
   );
-  background-size: 200% 200%;
+  background-size: 400% 400%;
   animation: gradient-animation 4s ease infinite;
 }
 
 .mint-button {
-  background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
+  background: -webkit-linear-gradient(left, #04e09e, #03dd94);
   font-size: 18px;
-  background-size: 200% 200%;
+  background-size: 400% 400%;
   animation: gradient-animation 4s ease infinite;
-  margin: 20px 10px;
+  margin: 50px 10px;
   border-radius: 20px;
   padding: 0px 2rem;
 }
 
 .mint-button:disabled{
-  background: #550072;
+  background: #03dab6;
   color: rgb(209, 209, 209);
   cursor: not-allowed;
 }
