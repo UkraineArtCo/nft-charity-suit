@@ -82,7 +82,7 @@ header{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: rgba(255,255,255,0.75);
   border-radius: 1vw;
   position: absolute;
   top: 50%;
@@ -90,6 +90,7 @@ header{
   transform: translateY(-50%);
   padding: 5vh 2vw 1vh 2vw;
   box-shadow: 10px 10px 10px rgba(0,0,0,0.25);
+  backdrop-filter: blur(15px);
 }
 
 .content-container {
@@ -203,7 +204,7 @@ header{
 input{
   border: 0;
   border-radius: 1vw;
-  background-color: #f0f0f0;
+  background-color: #fafafa;
   color: rgb(0, 0, 0);
   letter-spacing: 1px;
   font-size: 26px;
@@ -366,6 +367,7 @@ input:focus {
       right:5px;
       background: transparent;
       box-shadow: none;
+      backdrop-filter: none;
     }
 
     .container::before{
