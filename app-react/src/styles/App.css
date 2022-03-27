@@ -47,6 +47,16 @@ header{
   padding: 10px 5px;
 }
 
+.title p:first-child{
+  padding-left: 10px;
+  border-radius: 5px 0 0 5px;
+}
+
+.title p:last-child{
+  padding-right: 10px;
+  border-radius: 0 5px 5px 0;
+}
+
 .title .blue{
   color: #005BC2;
   background-color:#ffd633;
@@ -87,10 +97,14 @@ header{
 
 .right{
   display: flex;
-  background: black;
-  border-radius: 10px;
+  background: #fff;
+  border-radius: 0.5vw;
   padding: 12px 20px;
   align-items: center;
+  color: #333;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 5px rgb(0 0 0 / 10%);
+  font-weight: bold;
 }
 
 .center{
@@ -267,6 +281,26 @@ input:focus {
   margin: 0;  
   padding: 0;
   margin-bottom: 13px;
+}
+
+.social{
+  display: flex;
+  margin-top: 2rem;
+}
+
+.social .social-link{
+  height: 18px;
+  padding: 0 10px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.social .social-link:hover{
+  opacity: 1;
+}
+
+.social .social-link .social-link-img{
+  height: 100%;
 }
 
 .mint-list {

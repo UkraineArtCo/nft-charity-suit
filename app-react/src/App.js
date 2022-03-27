@@ -5,6 +5,10 @@ import polygonContractAbi from './utils/polygonContractABI.json';
 
 import polygonLogo from './assets/polygonlogo.png';
 import ethLogo from './assets/ethlogo.png';
+import twitterLogo from './assets/twitter-logo.svg';
+import instagramLogo from './assets/instagram-logo.svg';
+import faceboookLogo from './assets/facebook-logo.svg';
+import tiktokLogo from './assets/tiktok-logo.svg';
 import { networks } from './utils/networks';
 
 import FormData from 'form-data';
@@ -422,6 +426,20 @@ const App = () => {
 						{!currentAccount && renderNotConnectedContainer()}
 						{currentAccount && renderInputForm()}
 						<p className="description"> Net proceeds will be donated directly to causes supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
+						<div className="social">
+							<a className="social-link" target="_blank" rel="noreferrer" href="https://twitter.com/UkraineArtCo">
+								<img className="social-link-img" src={twitterLogo} alt="twitter"/>
+							</a>
+							<a className="social-link" target="_blank" rel="noreferrer" href="https://www.instagram.com/UkraineArtCo">
+								<img className="social-link-img" src={instagramLogo} alt="instagram"/>
+							</a>
+							<a className="social-link" target="_blank" rel="noreferrer" href="https://www.facebook.com/UkraineArtCo">
+								<img className="social-link-img" src={faceboookLogo} alt="facebook"/>
+							</a>
+							<a className="social-link" target="_blank" rel="noreferrer" href="https://www.tiktok.com/@UkraineArtCo">
+								<img className="social-link-img" src={tiktokLogo} alt="tiktok"/>
+							</a>
+						</div>
 					</div>
 				{errorMessage && 
 				(<p className="isa_error"> {errorMessage} </p>)}
