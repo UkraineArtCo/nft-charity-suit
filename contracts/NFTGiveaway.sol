@@ -15,7 +15,6 @@ import {Base64} from "./libraries/Base64.sol";
 contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct, ERC721Royalty {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    address public firstBayer;
     address payable public charityDestinationWallet;
     mapping(uint => MarketItem) public marketItems;
 
@@ -25,10 +24,6 @@ contract UkraineArtCoNFT is ERC721URIStorage, Ownable, Struct, ERC721Royalty {
 
     function mintNFT(string memory tokenUri) public payable returns (uint256) {
         require(msg.value >= 1, "Minimum 1 Matic is not met");
-
-        if (_tokenIds.current() == 0) {
-            firstBayer = msg.sender;
-        }
 
 		// Create the JSON metadata of our NFT. We do this by combining strings and encoding as base64
         string memory json = Base64.encode(
