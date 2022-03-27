@@ -12,9 +12,6 @@ import axios from 'axios';
 import {Buffer} from 'buffer';
 import { number } from "prop-types";
 
-import bpic from './assets/images/nft-ukraine-illustration.png'
-
-
 
 // Constants
 const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
@@ -376,9 +373,6 @@ const App = () => {
 	return (
 		<div className="App">
 			<div className="container">
-			
-       
-       
 				<div className="header-container">
 					<header>
 					<div className="left">
@@ -388,16 +382,12 @@ const App = () => {
 						{ currentAccount ? <p> Wallet: {currentAccount.slice(0, 6)}...{currentAccount.slice(-4)} </p> : <p> Not connected </p> }
 					</div>				
 					</header>
-
-
 					<div className="center">
-						<p className="title">Ukraine Art Collective</p>
-						<p className="subtitle">Donate</p>
-					
-						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="" /> */}
-							</div>
-
-							
+						<p className="title">NFT Charity Giveaway</p>
+						<p className="subtitle">Support Ukraine!</p>
+						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="Ninja donut gif" /> */}
+						<img src={require("./store/SaveUkraine_NFT_1.png")} alt="Ukraine NFT" />
+					</div>
 				</div>
 				{/* Hide the connect button if currentAccount isn't empty*/}
 				{!currentAccount && renderNotConnectedContainer()}
@@ -407,7 +397,6 @@ const App = () => {
 
 			</div>
 		</div>
-		
 	);
 };
 
