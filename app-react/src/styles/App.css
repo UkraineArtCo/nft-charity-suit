@@ -40,6 +40,7 @@ header{
   font-weight: bold;
   color: rgb(0, 0, 0);
   display: flex;
+  flex-wrap: wrap;
 }
 
 .title p{
@@ -388,6 +389,7 @@ input:focus {
       background: transparent;
       box-shadow: none;
       backdrop-filter: none;
+      border:none;
     }
 
     .container::before{
