@@ -16,9 +16,9 @@ module.exports = {
       url: config.POLYGON_MUMBAI_URL,
       accounts: [`0x${config.PRIVATE_KEY}`],
     },
-    ropsten: {
+    /* ropsten: {
       url: config.ROPSTEN_URL,
       accounts: [`0x${config.PRIVATE_KEY}`],
-    },
+    }, */
   },
 };
