@@ -12,12 +12,8 @@ import axios from 'axios';
 import {Buffer} from 'buffer';
 import { number } from "prop-types";
 
-import bpic from './assets/images/nft-ukraine-illustration.png'
-
-
 
 // Constants
-const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
 const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -37,7 +33,6 @@ const App = () => {
 	const [file, setFile] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [ipfshash, setIpfshash] = useState('');
-	const [tokenViewURL, setTokenViewURL] = useState();
 
 	const pinataPinFileToIPFS = async () =>{
 
@@ -254,9 +249,7 @@ const App = () => {
 							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(amount)});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
-							console.log("receipt:", receipt);
-							console.log("receipt id:", receipt["logs"]["1"]["topics"]["3"], parseInt(receipt["logs"]["1"]["topics"]["3"], 16));
-							setTokenViewURL(OPENSEA_URL+POLYGON_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["1"]["topics"]["3"], 16)));
+							console.log("receipt:", receipt);	
 						} catch (error) {
 							console.log("error", error);
 							console.log("message", error.data.message);
@@ -372,19 +365,6 @@ const App = () => {
 			</div>
 		);
 	}
-	// Form to enter domain name and data
-	const renderOpenseaView = () =>{
-		return (
-			<div className="form-container">
-				<div className="first-row">
-				<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
-					View your NFT on OpenSea
-				</a>
-				</div>
-
-			</div>
-		);
-	}
 
 	useEffect(() => {
 		checkIfWalletIsConnected();
@@ -393,9 +373,6 @@ const App = () => {
 	return (
 		<div className="App">
 			<div className="container">
-			
-       
-       
 				<div className="header-container">
 					<header>
 					<div className="left">
@@ -405,27 +382,21 @@ const App = () => {
 						{ currentAccount ? <p> Wallet: {currentAccount.slice(0, 6)}...{currentAccount.slice(-4)} </p> : <p> Not connected </p> }
 					</div>				
 					</header>
-
-
 					<div className="center">
-						<p className="title">Ukraine Art Collective</p>
-						<p className="subtitle">Donate</p>
-					
-						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="" /> */}
-							</div>
-
-							
+						<p className="title">NFT Charity Giveaway</p>
+						<p className="subtitle">Support Ukraine!</p>
+						{/* <img src="https://media.giphy.com/media/EtBZ577Z8xMjF86qxz/giphy.gif" alt="Ninja donut gif" /> */}
+						<img src={require("./store/SaveUkraine_NFT_1.png")} alt="Ukraine NFT" />
+					</div>
 				</div>
 				{/* Hide the connect button if currentAccount isn't empty*/}
 				{!currentAccount && renderNotConnectedContainer()}
 				{currentAccount && renderInputForm()}
-				{tokenViewURL && renderOpenseaView()}
 				{errorMessage && 
 				(<p className="isa_error"> {errorMessage} </p>)}
 
 			</div>
 		</div>
-		
 	);
 };
 
