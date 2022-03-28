@@ -418,12 +418,16 @@ input:focus {
 
   @media only screen and (max-width: 600px) {
     .center{
-      left:5px;
-      right:5px;
+      left:initial;
+      right:initial;
       background: transparent;
       box-shadow: none;
       backdrop-filter: none;
       border:none;
+      position: relative;
+      transform: none;
+      top: initial;
+      padding-bottom: 50px;
     }
 
     .container::before{
@@ -435,6 +439,12 @@ input:focus {
       height: 100%;
       background-color: rgba(255,255,255,0.9);
     }
+
+    .title{
+      font-size: 28px;
+    }
+
+
 
     input{
       max-width: none;
