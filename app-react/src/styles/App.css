@@ -32,6 +32,7 @@ header{
   flex-direction: row;
   justify-content: space-between;
   padding: 0 5vw;
+  height: 50px;
 }
 
 .title {
@@ -68,12 +69,11 @@ header{
 }
 
 .subtitle {
-  font-size: 24px;
+  font-size: 18px;
   color: rgba(0, 0, 0,0.75);
-  margin: 0 0 1rem 0;
   max-width: 400px;
   width: 100%;
-  line-height:30px;
+  line-height:24px;
 }
 
 .description {
@@ -86,7 +86,19 @@ header{
 }
 
 .left{
-  text-align: left;
+  display: flex;
+}
+
+.main-logo{
+  height: 100%;
+}
+
+.main-logo .main-logo-img, .main-logo .main-logo-img-text{
+  height: 100%;
+}
+
+.main-logo .main-logo-img{
+  display: none;
 }
 
 .logo{
@@ -233,7 +245,7 @@ header{
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  margin: 4rem 0;
+  margin: 3rem 0;
 }
 
 input{
@@ -283,6 +295,16 @@ input:focus {
   margin-bottom: 13px;
 }
 
+.github-link{
+  color:#777;
+  text-decoration: none;
+  margin: 1rem 0 0 0;
+}
+
+.github-link:hover{
+  color: #333;
+}
+
 .social{
   display: flex;
   margin-top: 2rem;
@@ -291,7 +313,7 @@ input:focus {
 .social .social-link{
   height: 18px;
   padding: 0 10px;
-  opacity: 0.5;
+  opacity: 0.65;
   cursor: pointer;
 }
 
@@ -427,7 +449,11 @@ input:focus {
       position: relative;
       transform: none;
       top: initial;
-      padding-bottom: 50px;
+      padding: 20px 5px 50px 5px;
+    }
+
+    .container{
+      justify-content: start;
     }
 
     .container::before{
@@ -440,12 +466,20 @@ input:focus {
       background-color: rgba(255,255,255,0.9);
     }
 
+    .main-logo .main-logo-img{
+      display: initial;
+    }
+
+    .main-logo .main-logo-img-text{
+      display: none;
+    }
+
     .title{
       font-size: 28px;
     }
 
     .subtitle{
-      font-size: 20px;
+      font-size: 16px;
     }
 
     input{

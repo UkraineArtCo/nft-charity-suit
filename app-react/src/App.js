@@ -9,14 +9,14 @@ import twitterLogo from './assets/twitter-logo.svg';
 import instagramLogo from './assets/instagram-logo.svg';
 import faceboookLogo from './assets/facebook-logo.svg';
 import tiktokLogo from './assets/tiktok-logo.svg';
+import logoText from './assets/logo-text.png';
+import logo from './assets/logo.png';
 import { networks } from './utils/networks';
 
 import FormData from 'form-data';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { number } from "prop-types";
-
-import bpic from './assets/images/nft-ukraine-illustration.png'
 
 
 
@@ -34,7 +34,7 @@ const App = () => {
 
 	// Add some state data propertie
 	const [name, setName] = useState('');
-	const [amount, setAmount] = useState('');
+	const [amount, setAmount] = useState(0.03);
   	const [currentAccount, setCurrentAccount] = useState('');
 	const [network, setNetwork] = useState('');
 	const [bg, setBg] = useState('');
@@ -363,7 +363,7 @@ const App = () => {
 						type="number"
 						value={amount}
 						min="0"
-						step="0.1"
+						step="0.01"
 						placeholder='Enter Amount'
 						onChange={e => setAmount(e.target.value)}
 					/>
@@ -412,6 +412,10 @@ const App = () => {
 				<div className="header-container">
 					<header>
 						<div className="left">
+							<a className="main-logo" href="/">
+								<img className="main-logo-img" src={logo} alt="Ukraine Art Collective"/>
+								<img className="main-logo-img-text" src={logoText} alt="Ukraine Art Collective"/>
+							</a>
 						</div>
 						<div className="right">
 							<img alt="Network logo" className="logo" src={ network.includes("Polygon") ? polygonLogo : ethLogo} />
@@ -421,7 +425,7 @@ const App = () => {
 				</div>
 				<div className="center">
 						<div className="title"><p className="blue">Ukraine</p><p className="yellow">Art</p><p className="yellow">Collective</p></div>
-						<p className="subtitle">Harnessing global creative power to support the Ukrainian people.</p>
+						<p className="subtitle">Harnessing global creative power to support the Ukrainian people. We appreciate donation of any amount, with recommended minimum of 0.03 ETH</p>
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}
 						{currentAccount && renderInputForm()}
@@ -440,6 +444,9 @@ const App = () => {
 								<img className="social-link-img" src={tiktokLogo} alt="tiktok"/>
 							</a>
 						</div>
+						<a href="#" className="github-link">
+							See our contract on GitHub
+						</a>
 					</div>
 				{errorMessage && 
 				(<p className="isa_error"> {errorMessage} </p>)}
