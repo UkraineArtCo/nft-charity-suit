@@ -43,6 +43,7 @@ const App = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [ipfshash, setIpfshash] = useState('');
 	const [tokenViewURL, setTokenViewURL] = useState();
+	const [currentPrice, setCurrentPrice] = useState(0);
 
 	const pinataPinFileToIPFS = async () =>{
 
@@ -337,6 +338,8 @@ const App = () => {
 		const chainId = await ethereum.request({ method: 'eth_chainId' });
 		setNetwork(networks[chainId]);
 
+		await getTokenPrice(networks[chainId]);
+
 		ethereum.on('chainChanged', handleChainChanged);
 		
 		// Reload the page when they change networks
@@ -362,13 +365,13 @@ const App = () => {
 					<input
 						type="number"
 						value={amount}
-						min="0"
+						min="0.03"
 						step="0.01"
 						placeholder='Enter Amount'
 						onChange={e => setAmount(e.target.value)}
 					/>
+					{currentPrice && <p className="current-price">${Math.round(((currentPrice*amount)+Number.EPSILON) * 100) / 100}~</p>}
 				</div>
-
 				<div className="button-container">
 					{/* <input type="file" onChange={(event)=>setFile(event.target.files[0])}/> */}
 					<button className='cta-button mint-button' onClick={donateAmount}>
@@ -399,6 +402,14 @@ const App = () => {
 		import(`./assets/images/bg/${images.keys()[bgIndex].replace('./','')}`).then(image => {
 			setBg(image.default);
 		});
+	}
+
+	const getTokenPrice = async(chain)=>{
+		const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${chain.includes('Polygon') ? 'matic-network' : 'ethereum'}`);
+		if(response.ok){
+			const data = await response.json();
+			setCurrentPrice(data[0].current_price || 0);
+		}
 	}
 
 	useEffect(() => {
