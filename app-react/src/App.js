@@ -241,7 +241,7 @@ const App = () => {
 					console.log("amount", amount, typeof(amount));
 					console.log("Number:", Number(amount), Number(amount)>=0.1);
 
-					if (Number(amount) >= 0.1) {
+					if (Number(amount) >= 0.03) {
 
 						const contract = new ethers.Contract(POLYGON_CONTRACT_ADDRESS, polygonContractAbi.abi, signer);
 		
