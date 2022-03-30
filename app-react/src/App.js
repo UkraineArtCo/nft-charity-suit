@@ -42,7 +42,7 @@ const App = () => {
 	const [file, setFile] = useState();
 	const [errorMessage, setErrorMessage] = useState('');
 	const [ipfshash, setIpfshash] = useState('');
-	const [tokenViewURL, setTokenViewURL] = useState();
+	const [tokenViewURL, setTokenViewURL] = useState('');
 	const [currentPrice, setCurrentPrice] = useState(0);
 
 	const pinataPinFileToIPFS = async () =>{
@@ -357,7 +357,16 @@ const App = () => {
 			</button>
 		</div>
 	);
-	// Form to enter domain name and data
+	// From
+	// Form to view NFT on OpenSea
+	const renderWhenWalletConnected = () =>{
+		if (tokenViewURL === '') {
+			return renderInputForm()
+		} else {
+			return renderOpenseaView()
+		}
+	}
+	// Form to enter donate amount
 	const renderInputForm = () =>{
 		return (
 			<div className="form-container">
@@ -378,20 +387,18 @@ const App = () => {
 						{`Donate ${amount} ETH`}
 					</button>
 				</div>
-
 			</div>
 		);
 	}
-	// Form to enter domain name and data
+	// Form to view NFT on OpenSea
 	const renderOpenseaView = () =>{
 		return (
 			<div className="form-container">
 				<div className="first-row">
-				<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
-					View your NFT on OpenSea
-				</a>
+					<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
+						View your NFT on OpenSea (takes a bit to appear)
+					</a>
 				</div>
-
 			</div>
 		);
 	}
@@ -439,7 +446,7 @@ const App = () => {
 						<p className="subtitle">Harnessing global creative power to support the Ukrainian people. We appreciate donation of any amount, with recommended minimum of 0.03 ETH</p>
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}
-						{currentAccount && renderInputForm()}
+						{currentAccount && renderWhenWalletConnected()}
 						<p className="description"> Net proceeds will be donated directly to causes supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
 						<div className="social">
 							<a className="social-link" target="_blank" rel="noreferrer" href="https://twitter.com/UkraineArtCo">
