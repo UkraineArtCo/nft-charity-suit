@@ -22,7 +22,7 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
-const POLYGON_CONTRACT_ADDRESS = '0xC30Fd403C767fbd0F066d8c0bb03c6Ac6dbAE223';
+const POLYGON_CONTRACT_ADDRESS = '0x3CBe81ad8A7114Df23BF09588c26e0E5E830F8f6';
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -384,11 +384,11 @@ const App = () => {
 	// From
 	// Form to view NFT on OpenSea
 	const renderWhenWalletConnected = () =>{
-		if (tokenViewURL === '') {
-			return renderInputForm()
-		} else {
-			return renderOpenseaView()
-		}
+		// if (tokenViewURL === '') {
+		return renderInputForm()
+		// } else {
+		// 	return renderOpenseaView()
+		// }
 	}
 	// Form to enter donate amount
 	const renderInputForm = () =>{

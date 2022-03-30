@@ -22,11 +22,11 @@ contract UkraineArtCoNFT is ERC1155, Ownable {
     );
     
     constructor() ERC1155("") {
-        charityDestinationWallet = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
+        charityDestinationWallet = payable(0xECEB956b4cB1Ca73205d47A645beb872A31ACcD8);
     }
 
     function mint(string memory tokenUri) public payable returns (uint256) {
-        require(msg.value > 3*10**16, "Minimum 0.03 ETH is not met.");
+        require(msg.value >= 3*10**16, "Minimum 0.03 ETH is not met.");
 
        
         uint256 newItemId = _tokenIds.current();
