@@ -22,7 +22,7 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
-const POLYGON_CONTRACT_ADDRESS = '0xfF40F78Fa79F25B7dB45d125AF97dDa271d18F8b';
+const POLYGON_CONTRACT_ADDRESS = '0xC30Fd403C767fbd0F066d8c0bb03c6Ac6dbAE223';
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
