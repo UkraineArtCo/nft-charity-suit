@@ -407,7 +407,7 @@ const App = () => {
 				<div className="button-container">
 					{/* <input type="file" onChange={(event)=>setFile(event.target.files[0])}/> */}
 					<button className='cta-button mint-button' onClick={donateAmount}>
-						Donate
+						{`Donate ${amount} ETH`}
 					</button>
 				</div>
 			</div>
