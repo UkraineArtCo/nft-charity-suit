@@ -22,7 +22,7 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
-const POLYGON_CONTRACT_ADDRESS = '0xA5c360F1E06A47A6168Dd3a3F0871BCE947D1F43';
+const POLYGON_CONTRACT_ADDRESS = '0xFE23b009d06A0EA329A87C7F5E35B244075C92F2';
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
 const Server = PNG_server == "http://localhost"? PNG_server + ":" + PNG_port : PNG_server;
@@ -280,7 +280,7 @@ const App = () => {
 
 						console.log("Going to pop wallet now to pay gas...");
 						try {
-							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(String(amount))});
+							let tx = await contract.mint(NFTMetaStr, {value: ethers.utils.parseEther(String(amount))});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
 							console.log("receipt:", receipt);
@@ -296,8 +296,8 @@ const App = () => {
 
 					} else {
 
-						setErrorMessage('Minimum Matic is 0.1');
-						console.log("Minimum Matic is 0.1");
+						setErrorMessage('Minimum ETH is 0.03');
+						console.log("Minimum ETH is 0.03");
 
 					}
 
