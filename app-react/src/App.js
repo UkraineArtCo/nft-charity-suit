@@ -219,6 +219,30 @@ const App = () => {
 		
 	}
 
+	const getIPFS = async () => {
+
+		return await axios.get(Server+'/getIPFS')
+		.then(function (response) {
+			return response.data;
+		})
+		.catch(function (error) {
+			//
+		});
+		
+	}
+
+	const revertIPFS = async (_NFTnameid) => {
+
+		return await axios.get(Server+'/revertIPFS/fname/:' + _NFTnameid)
+		.then(function (response) {
+			return response.data;
+		})
+		.catch(function (error) {
+			//
+		});
+		
+	}
+
 	const donateAmount = async () => {
 
 		try {
@@ -239,35 +263,34 @@ const App = () => {
 				if (network.includes("Polygon")) {
 
 					console.log("amount", amount, typeof(amount));
-					console.log("Number:", Number(amount), Number(amount)>=0.1);
 
 					if (Number(amount) >= 0.03) {
 
 						const contract = new ethers.Contract(POLYGON_CONTRACT_ADDRESS, polygonContractAbi.abi, signer);
 		
-						const resNFT = await getNFTCID();
+						// const resNFT = await getNFTCID();
+						const resNFT = await getIPFS();
 						console.log("totalLeft:", resNFT.totalLeft);
-						console.log("NFTid:", resNFT.NFTid);
 						console.log("CID:", resNFT.CID);
+						console.log("NFTnameId:", resNFT.NFTnameId);
 
-						const NFTMeta = await getNFTMeta(resNFT.CID);
-						const NFTMetaStr = JSON.stringify(NFTMeta);
-						// console.log("NFTMeta:", NFTMeta, typeof(NFTMeta));
+						// const NFTMeta = await getNFTMeta(resNFT.CID);
+						const NFTMetaStr = JSON.stringify({"name": "UAC"+String(resNFT.NFTnameId), "description": "Ukraine Art Collective - direct donation to causes supporting Ukranian people's dreams of building a free, prosperous, and independent European nation", "image": "ipfs://"+String(resNFT.CID)+"/"+String(resNFT.NFTnameId)+".png"});
 						console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
 
 						console.log("Going to pop wallet now to pay gas...");
 						try {
-							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(amount)});
+							let tx = await contract.mintNFT(NFTMetaStr, {value: ethers.utils.parseEther(String(amount))});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
 							console.log("receipt:", receipt);
 							console.log("receipt id:", receipt["logs"]["1"]["topics"]["3"], parseInt(receipt["logs"]["1"]["topics"]["3"], 16));
 							setTokenViewURL(OPENSEA_URL+POLYGON_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["1"]["topics"]["3"], 16)));
 						} catch (error) {
-							console.log("error", error);
+							console.log(error);
 							console.log("message", error.data.message);
 							setErrorMessage(error.data.message);
-							const resRev = await revertMeta(resNFT.NFTid, resNFT.CID);
+							const resRev = await revertIPFS(resNFT.NFTnameId);
 							console.log("resRev:", resRev);
 						}
 
