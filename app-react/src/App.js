@@ -265,7 +265,7 @@ const App = () => {
 
 					// console.log("amount", amount, typeof(amount));
 
-					if (Number(amount) >= 0.03) {
+					if (Number(amount) >= 0.01) {
 
 						const contract = new ethers.Contract(POLYGON_CONTRACT_ADDRESS, polygonContractAbi.abi, signer);
 		
@@ -297,8 +297,8 @@ const App = () => {
 
 					} else {
 
-						setErrorMessage('Minimum ETH is 0.03');
-						console.log("Minimum ETH is 0.03");
+						setErrorMessage('Minimum ETH is 0.01');
+						console.log("Minimum ETH is 0.01");
 
 					}
 
@@ -456,7 +456,7 @@ const App = () => {
 						<div className="left">
 							<a className="main-logo" href="/">
 								<img className="main-logo-img" src={logo} alt="Ukraine Art Collective"/>
-								<img className="main-logo-img-text" src={logoText} alt="Ukraine Art Collective"/>
+							{/*	<img className="main-logo-img-text" src={logoText} href="https://ukraineartco.org" target="_blank" alt="Ukraine Art Collective"/> */}
 							</a>
 						</div>
 						<div className="right">
@@ -467,11 +467,11 @@ const App = () => {
 				</div>
 				<div className="center">
 						<div className="title"><p className="blue">Ukraine</p><p className="yellow">Art</p><p className="yellow">Collective</p></div>
-						<p className="subtitle">Harnessing global creative power to support the Ukrainian people. We appreciate donation of any amount, with recommended minimum of 0.03 ETH</p>
+						<p className="subtitle">Harnessing global creative power to support the Ukrainian people. When you donate, you get an NFT created by Ukrainian artists. We appreciate donation of any amount, with recommended minimum of 0.03 ETH</p>
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}
 						{currentAccount && renderWhenWalletConnected()}
-						<p className="description"> Net proceeds will be donated directly to causes supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
+						<p className="description"> Net proceeds will be donated directly to <a href="https://razomforukraine.org/" target="_blank">Razom</a> a US registed 501(c)(3) organization supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
 						<div className="social">
 							<a className="social-link" target="_blank" rel="noreferrer" href="https://twitter.com/UkraineArtCo">
 								<img className="social-link-img" src={twitterLogo} alt="twitter"/>
@@ -486,7 +486,7 @@ const App = () => {
 								<img className="social-link-img" src={tiktokLogo} alt="tiktok"/>
 							</a>
 						</div>
-						<a href="#" className="github-link">
+						<a href="https://github.com/ukraineartco/" target="_blank" className="github-link">
 							See our contract on GitHub
 						</a>
 					</div>

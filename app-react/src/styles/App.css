@@ -83,7 +83,14 @@ header{
   margin: 0 0 1rem 0;
   max-width: 400px;
   width: 100%;
+  
 }
+
+.description a:link{color:#005BC2; text-decoration: none;}
+.description a:visited{color: #005BC2; text-decoration: none;}
+.description a:hover{color:#ffd633;text-decoration: none; }
+.description a:active{color:#ffd633;text-decoration: none; }
+
 
 .left{
   display: flex;
