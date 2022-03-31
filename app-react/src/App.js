@@ -45,6 +45,7 @@ const App = () => {
 	const [ipfshash, setIpfshash] = useState('');
 	const [tokenViewURL, setTokenViewURL] = useState('');
 	const [currentPrice, setCurrentPrice] = useState(0);
+	const [noMetaMask, setNoMetaMask] = useState(false);
 
 	const pinataPinFileToIPFS = async () =>{
 
@@ -323,7 +324,8 @@ const App = () => {
 			const { ethereum } = window;
 
 			if (!ethereum) {
-				alert("Get MetaMask -> https://metamask.io/");
+				setNoMetaMask(true)
+				// alert("Get MetaMask -> https://metamask.io/");
 				return;
 			}
 
@@ -373,15 +375,32 @@ const App = () => {
 	};
 
 	// Render Methods
-	const renderNotConnectedContainer = () => (
+	const renderNotConnectedContainer = () =>{
+		if (noMetaMask) {
+			return renderMetamaskIO()
+		} else {
+			return renderConnectButton()
+		}
+	}
+
+	const renderMetamaskIO = () => (
+		<div className="connect-wallet-container">
+			{/* Call the connectWallet function we just wrote when the button is clicked */}
+			<a href="https://metamask.io/" target="_blank" rel="noreferrer noopener">
+				Get Metamask for your browser
+			</a>
+		</div>
+	)
+
+	const renderConnectButton = () => (
 		<div className="connect-wallet-container">
 			{/* Call the connectWallet function we just wrote when the button is clicked */}
 			<button onClick={connectWallet} className="cta-button connect-wallet-button">
 				Connect Wallet
 			</button>
 		</div>
-	);
-	// From
+	)
+
 	// Form to view NFT on OpenSea
 	const renderWhenWalletConnected = () =>{
 		if (tokenViewURL === '') {
