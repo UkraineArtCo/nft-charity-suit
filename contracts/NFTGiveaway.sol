@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
@@ -11,24 +11,34 @@ contract UkraineArtCoNFT is ERC1155, Ownable {
     Counters.Counter private _tokenIds;
     address payable public charityDestinationWallet;
     mapping(uint =>uint) public marketItems;
-
+    
+    uint256 public minimumDonation; 
+    
     event MarketItemSold (
         uint indexed tokenId,
         address owner
     );
     
     constructor() ERC1155("") {
-        charityDestinationWallet = payable(0xECEB956b4cB1Ca73205d47A645beb872A31ACcD8);
+        charityDestinationWallet = payable(0xA4166BC4Be559b762B346CB4AAad3b051E584E39); //Razom charity ETH wallet
+        minimumDonation = 1*10**16;
     }
 
-    function mint(string memory tokenUri) public payable returns (uint256) {
-        require(msg.value >= 3*10**16, "Minimum 0.03 ETH is not met.");
+    function setMinimumDonation(uint256 newValue) public onlyOwner {
+    minimumDonation = newValue;
+       } 
 
-       
+    function setDonationWallet(address payable newWallet) public onlyOwner {
+    charityDestinationWallet = payable(newWallet);   
+    } 
+
+    function mint(string memory tokenUri) public payable returns (uint256) {
+        require(msg.value >= minimumDonation, "Minimum donation is not met.");
+
         uint256 newItemId = _tokenIds.current();
         marketItems[newItemId] = msg.value;
 
-        _mint(msg.sender, newItemId, 1, ""); 
+        _mint(msg.sender, newItemId, 1, "");
         _setURI(tokenUri);
         _tokenIds.increment();
         emit MarketItemSold(newItemId, msg.sender);
