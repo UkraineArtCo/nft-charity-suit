@@ -263,7 +263,7 @@ const App = () => {
 
 				if (network.includes("Polygon")) {
 
-					console.log("amount", amount, typeof(amount));
+					// console.log("amount", amount, typeof(amount));
 
 					if (Number(amount) >= 0.03) {
 
@@ -272,27 +272,27 @@ const App = () => {
 						// const resNFT = await getNFTCID();
 						const resNFT = await getIPFS();
 						console.log("totalLeft:", resNFT.totalLeft);
-						console.log("CID:", resNFT.CID);
-						console.log("NFTnameId:", resNFT.NFTnameId);
+						// console.log("CID:", resNFT.CID);
+						// console.log("NFTnameId:", resNFT.NFTnameId);
 
 						// const NFTMeta = await getNFTMeta(resNFT.CID);
 						const NFTMetaStr = JSON.stringify({"name": "UAC"+String(resNFT.NFTnameId), "description": "Ukraine Art Collective - direct donation to causes supporting Ukranian people's dreams of building a free, prosperous, and independent European nation", "image": "ipfs://"+String(resNFT.CID)+"/"+String(resNFT.NFTnameId)+".png"});
-						console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
+						// console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
 
 						console.log("Going to pop wallet now to pay gas...");
 						try {
 							let tx = await contract.mint(NFTMetaStr, {value: ethers.utils.parseEther(String(amount))});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
-							console.log("receipt:", receipt);
-							console.log("receipt id:", receipt["logs"]["1"]["topics"]["3"], parseInt(receipt["logs"]["1"]["topics"]["3"], 16));
-							setTokenViewURL(OPENSEA_URL+POLYGON_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["1"]["topics"]["3"], 16)));
+							// console.log("receipt:", receipt);
+							// console.log("receipt id:", receipt["logs"]["2"]["topics"]["1"], parseInt(receipt["logs"]["2"]["topics"]["1"], 16));
+							setTokenViewURL(OPENSEA_URL+POLYGON_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
 						} catch (error) {
 							console.log(error);
-							console.log("message", error.data.message);
+							// console.log("message", error.data.message);
 							setErrorMessage(error.data.message);
 							const resRev = await revertIPFS(resNFT.NFTnameId);
-							console.log("resRev:", resRev);
+							// console.log("resRev:", resRev);
 						}
 
 					} else {
@@ -384,11 +384,11 @@ const App = () => {
 	// From
 	// Form to view NFT on OpenSea
 	const renderWhenWalletConnected = () =>{
-		// if (tokenViewURL === '') {
-		return renderInputForm()
-		// } else {
-		// 	return renderOpenseaView()
-		// }
+		if (tokenViewURL === '') {
+			return renderInputForm()
+		} else {
+			return renderOpenseaView()
+		}
 	}
 	// Form to enter donate amount
 	const renderInputForm = () =>{

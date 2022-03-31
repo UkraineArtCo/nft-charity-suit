@@ -16,7 +16,7 @@ contract UkraineArtCoNFT is ERC1155, Ownable {
     address payable public charityDestinationWallet;
     mapping(uint =>uint) public marketItems;
 
-  event MarketItemSold (
+    event MarketItemSold (
         uint indexed tokenId,
         address owner
     );
