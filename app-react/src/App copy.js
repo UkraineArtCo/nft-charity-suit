@@ -22,8 +22,7 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
-const CONTRACT_ADDRESS = '0xdBB0bCa67316044F863A494b61886C4B78eFf2df'; //'0x0561Be86AAF03863DE2899530260fc05FB1f001C'; 
-//const ETH_CONTRACT_ADDRESS = '0xA4166BC4Be559b762B346CB4AAad3b051E584E39';
+const POLYGON_CONTRACT_ADDRESS = '0x3CBe81ad8A7114Df23BF09588c26e0E5E830F8f6'; // Razor wallet ETH 0xA4166BC4Be559b762B346CB4AAad3b051E584E39
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -247,9 +246,6 @@ const App = () => {
 
 	const donateAmount = async () => {
 
-	
-	
-	
 		try {
 
 			setErrorMessage('');
@@ -257,7 +253,7 @@ const App = () => {
 
 			if (!ethereum) {
 
-				alert("Open inside your Metamask browser -> https://ukraine-art-co.vercel.app/");
+				alert("Get MetaMask -> https://metamask.io/");
 				return;
 
 			} else {
@@ -267,10 +263,11 @@ const App = () => {
 
 				if (network.includes("Polygon")) {
 
+					// console.log("amount", amount, typeof(amount));
+
 					if (Number(amount) >= 0.01) {
 
-						const contract = new ethers.Contract(CONTRACT_ADDRESS, polygonContractAbi.abi, signer);								
-						//const contract = new ethers.Contract(ETH_CONTRACT_ADDRESS, ethereumContractAbi.abi, signer);
+						const contract = new ethers.Contract(POLYGON_CONTRACT_ADDRESS, polygonContractAbi.abi, signer);
 		
 						// const resNFT = await getNFTCID();
 						const resNFT = await getIPFS();
@@ -289,8 +286,7 @@ const App = () => {
 							const receipt = await tx.wait();
 							// console.log("receipt:", receipt);
 							// console.log("receipt id:", receipt["logs"]["2"]["topics"]["1"], parseInt(receipt["logs"]["2"]["topics"]["1"], 16));
-							setTokenViewURL(OPENSEA_URL+CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
-	//						setTokenViewURL(OPENSEA_URL+ETH_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
+							setTokenViewURL(OPENSEA_URL+POLYGON_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
 						} catch (error) {
 							console.log(error);
 							// console.log("message", error.data.message);
@@ -475,7 +471,7 @@ const App = () => {
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}
 						{currentAccount && renderWhenWalletConnected()}
-						<p className="description"> Net proceeds will be donated directly to <a href="https://razomforukraine.org/" target="_blank" rel="noreferrer">Razom</a> a US registed 501(c)(3) organization supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
+						<p className="description"> Net proceeds will be donated directly to <a href="https://razomforukraine.org/" target="_blank">Razom</a> a US registed 501(c)(3) organization supporting the Ukrainian people's dreams of building a free, prosperous, and independent European nation.</p>
 						<div className="social">
 							<a className="social-link" target="_blank" rel="noreferrer" href="https://twitter.com/UkraineArtCo">
 								<img className="social-link-img" src={twitterLogo} alt="twitter"/>
@@ -490,7 +486,7 @@ const App = () => {
 								<img className="social-link-img" src={tiktokLogo} alt="tiktok"/>
 							</a>
 						</div>
-						<a href="https://github.com/ukraineartco/" target="_blank" rel="noreferrer" className="github-link">
+						<a href="https://github.com/ukraineartco/" target="_blank" className="github-link">
 							See our contract on GitHub
 						</a>
 					</div>

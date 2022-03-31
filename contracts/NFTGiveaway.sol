@@ -1,14 +1,10 @@
-// Contract based on [https://docs.openzeppelin.com/contracts/3.x/erc721](https://docs.openzeppelin.com/contracts/3.x/erc721)
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-//import "./interfaces/Struct.sol";
 
-//import {StringUtils} from "./libraries/StringUtils.sol";
-//import {Base64} from "./libraries/Base64.sol";
 
 contract UkraineArtCoNFT is ERC1155, Ownable {
     using Counters for Counters.Counter;
@@ -34,7 +30,6 @@ contract UkraineArtCoNFT is ERC1155, Ownable {
 
         _mint(msg.sender, newItemId, 1, ""); 
         _setURI(tokenUri);
-        // _setTokenRoyalty(newItemId, charityDestinationWallet, 10);
         _tokenIds.increment();
         emit MarketItemSold(newItemId, msg.sender);
         payable(charityDestinationWallet).transfer(msg.value);
