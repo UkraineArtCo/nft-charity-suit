@@ -23,7 +23,7 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://opensea.io/assets/";
-const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; 
+const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -266,7 +266,7 @@ const App = () => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				const signer = provider.getSigner();
 
-				if (network.includes("Eth")) {
+				if (network.includes("e")) {
 
 					if (Number(amount) >= 0.01) {
 
