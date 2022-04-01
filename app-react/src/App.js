@@ -24,7 +24,7 @@ import { number } from "prop-types";
 const TokenViewURLbase = "https://rinkeby.rarible.com/token/"; // change to "https://rarible.com/token/" OR "https://testnets.opensea.io/assets/" when on MAINNET; "https://rinkeby.rarible.com/token/" (change rinkeby to testnet name) OR "https://testnets.opensea.io/assets/" when on TESTNET
 const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
 //const CONTRACT_ADDRESS = '0xCd5D8b3d0Ac393A7895e210f95475B4BA8e29C1a'; //mumbai 
-//const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
+// const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
 const metadataURIpart = "ipfs://bafybeigy4mdgv7cwb6a7b5uz5g2z5lfeg2po3p6a772nx4zyul5jg2m554/metadata/"
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
@@ -49,6 +49,7 @@ const App = () => {
 	const [tokenViewURL, setTokenViewURL] = useState('');
 	const [currentPrice, setCurrentPrice] = useState(0);
 	const [noMetaMask, setNoMetaMask] = useState(false);
+	const [NFTName, setNFTName] = useState('');
 
 	const pinataPinFileToIPFS = async () =>{
 
@@ -248,10 +249,20 @@ const App = () => {
 		
 	}
 
-	const donateAmount = async () => {
+	const getNFTMetaJSON = async (_NFTnameid) => {
 
-	
-	
+		return await axios.get('https://ipfs.io/ipfs/' + metadataURIpart.split("//")[1].split("/")[0] + '/metadata/' + _NFTnameid)
+		.then(function (response) {
+			console.log("response:", response);
+			return response.data;
+		})
+		.catch(function (error) {
+			setErrorMessage('Could not get NFT data, your funds were not affected. Try again...');
+		});
+		
+	}
+
+	const donateAmount = async () => {
 	
 		try {
 
@@ -275,6 +286,8 @@ const App = () => {
 					const contract = new ethers.Contract(CONTRACT_ADDRESS, ethContractAbi.abi, signer);			
 					const NFTnameId = Math.floor(Math.random()*150) + 1;
 					const metadataURI = metadataURIpart + String(NFTnameId);
+					const NFTMeta = await getNFTMetaJSON(NFTnameId);
+					setNFTName(NFTMeta.name)
 					console.log("Going to pop wallet now to pay gas...");
 					try {
 						let tx = await contract.mint(metadataURI, {value: ethers.utils.parseEther(String(amount))});
@@ -439,7 +452,7 @@ const App = () => {
 				<div className="form-container">
 					<div className="first-row">
 						<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
-							View your NFT on Rarible (might take a little time)
+							View your NFT on Rarible (might take a little time): {NFTName}
 						</a>
 					</div>
 				</div>
