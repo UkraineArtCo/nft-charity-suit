@@ -274,14 +274,14 @@ const App = () => {
 
 						const contract = new ethers.Contract(CONTRACT_ADDRESS, ethContractAbi.abi, signer);								
 						//const contract = new ethers.Contract(ETH_CONTRACT_ADDRESS, ethereumContractAbi.abi, signer);
-		
-						// const resNFT = await getNFTCID();
+						//console.log("Abi: ",ethContractAbi);
+						//const resNFT = await getNFTCID();
 						const resNFT = await getIPFS();
 						console.log("totalLeft:", resNFT.totalLeft);
 						// console.log("CID:", resNFT.CID);
 						// console.log("NFTnameId:", resNFT.NFTnameId);
 
-						// const NFTMeta = await getNFTMeta(resNFT.CID);
+						const NFTMeta = await getNFTMeta(resNFT.CID);
 						const NFTMetaStr = JSON.stringify({"name": "UAC"+String(resNFT.NFTnameId), "description": "Ukraine Art Collective - direct donation to causes supporting Ukranian people's dreams of building a free, prosperous, and independent European nation", "image": "ipfs://"+String(resNFT.CID)+"/"+String(resNFT.NFTnameId)+".png"});
 				
 						console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
@@ -290,7 +290,7 @@ const App = () => {
 						try {
 							let tx = await contract.mint(NFTMetaStr, {value: ethers.utils.parseEther(String(amount))});
 							console.log("NFTMetaStr:", NFTMetaStr);
-							console.log("Vtoroi argument:", {value: ethers.utils.parseEther(String(amount))});
+							//console.log("Second argument:", {value: ethers.utils.parseEther(String(amount))});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
 							//console.log("receipt:", receipt);
