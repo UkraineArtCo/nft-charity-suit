@@ -23,7 +23,9 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://opensea.io/assets/";
-const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
+const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
+//const CONTRACT_ADDRESS = '0xCd5D8b3d0Ac393A7895e210f95475B4BA8e29C1a'; //mumbai 
+//const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -266,7 +268,7 @@ const App = () => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				const signer = provider.getSigner();
 
-				if (network.includes("e")) {
+				if (network.includes("b")) {
 
 					if (Number(amount) >= 0.01) {
 
@@ -281,16 +283,21 @@ const App = () => {
 
 						// const NFTMeta = await getNFTMeta(resNFT.CID);
 						const NFTMetaStr = JSON.stringify({"name": "UAC"+String(resNFT.NFTnameId), "description": "Ukraine Art Collective - direct donation to causes supporting Ukranian people's dreams of building a free, prosperous, and independent European nation", "image": "ipfs://"+String(resNFT.CID)+"/"+String(resNFT.NFTnameId)+".png"});
-						// console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
+				
+						console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
 
 						console.log("Going to pop wallet now to pay gas...");
 						try {
 							let tx = await contract.mint(NFTMetaStr, {value: ethers.utils.parseEther(String(amount))});
+							console.log("NFTMetaStr:", NFTMetaStr);
+							console.log("Vtoroi argument:", {value: ethers.utils.parseEther(String(amount))});
 							// Wait for the transaction to be mined
 							const receipt = await tx.wait();
-							// console.log("receipt:", receipt);
+							//console.log("receipt:", receipt);
 							// console.log("receipt id:", receipt["logs"]["2"]["topics"]["1"], parseInt(receipt["logs"]["2"]["topics"]["1"], 16));
-							setTokenViewURL(OPENSEA_URL+CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
+	
+		//					setTokenViewURL(OPENSEA_URL+CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
+	//						setTokenViewURL(OPENSEA_URL+CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
 	//						setTokenViewURL(OPENSEA_URL+ETH_CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
 						} catch (error) {
 							console.log(error);
