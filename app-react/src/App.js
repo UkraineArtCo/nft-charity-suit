@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './styles/App.css';
 import { ethers } from "ethers";
 import polygonContractAbi from './utils/polygonContractABI.json';
+import ethContractAbi from './utils/ethContractABI.json';
 
 import polygonLogo from './assets/polygonlogo.png';
 import ethLogo from './assets/ethlogo.png';
@@ -21,9 +22,8 @@ import { number } from "prop-types";
 
 
 // Constants
-const OPENSEA_URL = "https://testnets.opensea.io/assets/mumbai/";
-const CONTRACT_ADDRESS = '0xdBB0bCa67316044F863A494b61886C4B78eFf2df'; //'0x0561Be86AAF03863DE2899530260fc05FB1f001C'; 
-//const ETH_CONTRACT_ADDRESS = '0xA4166BC4Be559b762B346CB4AAad3b051E584E39';
+const OPENSEA_URL = "https://opensea.io/assets/";
+const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; 
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
 const PNG_port = process.env.REACT_APP_PNG_PORT || "";
@@ -266,11 +266,11 @@ const App = () => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				const signer = provider.getSigner();
 
-				if (network.includes("Polygon")) {
+				if (network.includes("Eth")) {
 
 					if (Number(amount) >= 0.01) {
 
-						const contract = new ethers.Contract(CONTRACT_ADDRESS, polygonContractAbi.abi, signer);								
+						const contract = new ethers.Contract(CONTRACT_ADDRESS, ethContractAbi.abi, signer);								
 						//const contract = new ethers.Contract(ETH_CONTRACT_ADDRESS, ethereumContractAbi.abi, signer);
 		
 						// const resNFT = await getNFTCID();

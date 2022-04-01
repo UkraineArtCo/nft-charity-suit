@@ -3,6 +3,7 @@ import './styles/App.css';
 import { ethers } from "ethers";
 import polygonContractAbi from './utils/polygonContractABI.json';
 
+
 import polygonLogo from './assets/polygonlogo.png';
 import ethLogo from './assets/ethlogo.png';
 import twitterLogo from './assets/twitter-logo.svg';
