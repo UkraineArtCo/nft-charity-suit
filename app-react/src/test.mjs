@@ -37,7 +37,7 @@ async function main() {
     console.log("response:", response.data.IpfsHash);
 
 }
-  
+
 main().catch((error) => {
 console.error(error);
 process.exitCode = 1;

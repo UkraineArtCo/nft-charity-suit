@@ -20,9 +20,8 @@ import { Buffer } from 'buffer';
 import { number } from "prop-types";
 
 
-
 // Constants
-const OPENSEA_URL = "https://opensea.io/assets/";
+const TokenViewURLbase = "https://rinkeby.rarible.com/token/"; // change to "https://rarible.com/token/" OR "https://testnets.opensea.io/assets/" when on MAINNET; "https://rinkeby.rarible.com/token/" (change rinkeby to testnet name) OR "https://testnets.opensea.io/assets/" when on TESTNET
 const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
 //const CONTRACT_ADDRESS = '0xCd5D8b3d0Ac393A7895e210f95475B4BA8e29C1a'; //mumbai 
 //const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
@@ -269,50 +268,39 @@ const App = () => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				const signer = provider.getSigner();
 
-				if (network.includes("b")) {
+				console.log("network", network)
 
-					if (Number(amount) >= 0.01) {
+				if (Number(amount) >= 0.01) {
 
-						const contract = new ethers.Contract(CONTRACT_ADDRESS, ethContractAbi.abi, signer);								
-						//const contract = new ethers.Contract(ETH_CONTRACT_ADDRESS, ethereumContractAbi.abi, signer);
-						//console.log("Abi: ",ethContractAbi);
-						//const resNFT = await getNFTCID();
-						// const resNFT = await getIPFS();
-						// console.log("totalLeft:", resNFT.totalLeft);
-						// console.log("CID:", resNFT.CID);
-						// console.log("NFTnameId:", resNFT.NFTnameId);
-
-						// const NFTMeta = await getNFTMeta(resNFT.CID);
-						// const NFTMetaStr = JSON.stringify({"name": "UAC"+String(resNFT.NFTnameId), "description": "Ukraine Art Collective - direct donation to causes supporting Ukranian people's dreams of building a free, prosperous, and independent European nation", "image": "ipfs://"+String(resNFT.CID)+"/"+String(resNFT.NFTnameId)+".png"});
-				
-						// console.log("NFTMetaStr:", NFTMetaStr, typeof(NFTMetaStr));
-						const NFTnameId = Math.floor(Math.random()*150) + 1;
-						const metadataURI = metadataURIpart + String(NFTnameId);
-						console.log("metadataURI", metadataURI);
-
-						console.log("Going to pop wallet now to pay gas...");
-						try {
-							let tx = await contract.mint(metadataURI, {value: ethers.utils.parseEther(String(amount))});
-							console.log("metadataURI:", metadataURI);
-							//console.log("Second argument:", {value: ethers.utils.parseEther(String(amount))});
-							// Wait for the transaction to be mined
-							const receipt = await tx.wait();
-							console.log("receipt:", receipt);
-							// console.log("receipt id:", receipt["logs"]["2"]["topics"]["1"], parseInt(receipt["logs"]["2"]["topics"]["1"], 16));
-	
-							// setTokenViewURL(OPENSEA_URL+CONTRACT_ADDRESS+"/"+String(parseInt(receipt["logs"]["2"]["topics"]["1"], 16)));
-						} catch (error) {
-							console.log(error);
-							// console.log("message", error.data.message);
-							setErrorMessage(error.data.message);
+					const contract = new ethers.Contract(CONTRACT_ADDRESS, ethContractAbi.abi, signer);			
+					const NFTnameId = Math.floor(Math.random()*150) + 1;
+					const metadataURI = metadataURIpart + String(NFTnameId);
+					console.log("Going to pop wallet now to pay gas...");
+					try {
+						let tx = await contract.mint(metadataURI, {value: ethers.utils.parseEther(String(amount))});
+						// Wait for the transaction to be mined
+						const receipt = await tx.wait();
+						for (var ie = 0; ie < receipt["events"].length; ie++) {
+							if (receipt["events"][ie]["event"] === "MarketItemSold") {
+								if (TokenViewURLbase.includes("opensea")) {
+									setTokenViewURL(TokenViewURLbase+CONTRACT_ADDRESS+"/"+String(parseInt(receipt["events"][ie]["args"]["tokenId"]["_hex"], 16)));
+								} else if (TokenViewURLbase.includes("rarible")) {
+									setTokenViewURL(TokenViewURLbase+CONTRACT_ADDRESS+":"+String(parseInt(receipt["events"][ie]["args"]["tokenId"]["_hex"], 16)));
+								} else {
+									console.log("unknown TokenViewURLbase");
+								}
+							}
 						}
-
-					} else {
-
-						setErrorMessage('Minimum ETH is 0.01');
-						console.log("Minimum ETH is 0.01");
-
+					} catch (error) {
+						console.log(error);
+						// console.log("message", error.data.message);
+						setErrorMessage(error.data.message);
 					}
+
+				} else {
+
+					setErrorMessage('Minimum ETH is 0.01');
+					console.log("Minimum ETH is 0.01");
 
 				}
 
@@ -428,7 +416,7 @@ const App = () => {
 					<input
 						type="number"
 						value={amount}
-						min="0.03"
+						min="0.01"
 						step="0.01"
 						placeholder='Enter Amount'
 						onChange={e => setAmount(e.target.value)}
@@ -446,15 +434,27 @@ const App = () => {
 	}
 	// Form to view NFT on OpenSea
 	const renderOpenseaView = () =>{
-		return (
-			<div className="form-container">
-				<div className="first-row">
-					<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
-						View your NFT on OpenSea (takes a bit to appear)
-					</a>
+		if (tokenViewURL.includes("rarible")) {
+			return (
+				<div className="form-container">
+					<div className="first-row">
+						<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
+							View your NFT on Rarible (might take a little time)
+						</a>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		} else if (tokenViewURL.includes("opensea")) {
+			return (
+				<div className="form-container">
+					<div className="first-row">
+						<a href={tokenViewURL} target="_blank" rel="noreferrer noopener">
+							View your NFT on OpenSea (might take a little time)
+						</a>
+					</div>
+				</div>
+			);
+		}
 	}
 
 	const randomizeBg = () =>{
