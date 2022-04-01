@@ -269,7 +269,7 @@ const App = () => {
 				const provider = new ethers.providers.Web3Provider(ethereum);
 				const signer = provider.getSigner();
 
-				if (network.includes("b")) {
+				if (network.includes("e")) {
 
 					if (Number(amount) >= 0.01) {
 
