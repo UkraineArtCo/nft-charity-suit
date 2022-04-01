@@ -23,9 +23,9 @@ import { number } from "prop-types";
 
 // Constants
 const OPENSEA_URL = "https://opensea.io/assets/";
-const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
+//const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
 //const CONTRACT_ADDRESS = '0xCd5D8b3d0Ac393A7895e210f95475B4BA8e29C1a'; //mumbai 
-//const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
+const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
 const metadataURIpart = "ipfs://bafybeigy4mdgv7cwb6a7b5uz5g2z5lfeg2po3p6a772nx4zyul5jg2m554/metadata/"
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
