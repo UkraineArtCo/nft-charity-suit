@@ -21,7 +21,7 @@ import { number } from "prop-types";
 
 
 // Constants
-const TokenViewURLbase = "https://rinkeby.rarible.com/token/"; // change to "https://rarible.com/token/" OR "https://testnets.opensea.io/assets/" when on MAINNET; "https://rinkeby.rarible.com/token/" (change rinkeby to testnet name) OR "https://testnets.opensea.io/assets/" when on TESTNET
+const TokenViewURLbase = "https://rarible.com/token/"; // change to "https://rarible.com/token/" OR "https://testnets.opensea.io/assets/" when on MAINNET; "https://rinkeby.rarible.com/token/" (change rinkeby to testnet name) OR "https://testnets.opensea.io/assets/" when on TESTNET
 //const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
 //const CONTRACT_ADDRESS = '0xCd5D8b3d0Ac393A7895e210f95475B4BA8e29C1a'; //mumbai 
  const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
