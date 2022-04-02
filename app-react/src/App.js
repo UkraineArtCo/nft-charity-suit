@@ -22,9 +22,9 @@ import { number } from "prop-types";
 
 // Constants
 const TokenViewURLbase = "https://rinkeby.rarible.com/token/"; // change to "https://rarible.com/token/" OR "https://testnets.opensea.io/assets/" when on MAINNET; "https://rinkeby.rarible.com/token/" (change rinkeby to testnet name) OR "https://testnets.opensea.io/assets/" when on TESTNET
-const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
+//const CONTRACT_ADDRESS = '0xfCd4B6a4DB7C06614f02ac4B5847EFf32c041496'; //rinkeby 
 //const CONTRACT_ADDRESS = '0xCd5D8b3d0Ac393A7895e210f95475B4BA8e29C1a'; //mumbai 
-// const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
+ const CONTRACT_ADDRESS = '0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304'; //eth mainnet //eth contract address 0x32251F5c7999b76Ab6C5e00DcAAb9Cd3134c1304
 const metadataURIpart = "ipfs://bafybeigy4mdgv7cwb6a7b5uz5g2z5lfeg2po3p6a772nx4zyul5jg2m554/metadata/"
 
 const PNG_server = process.env.REACT_APP_PNG_SERVER || "http://localhost";
@@ -38,7 +38,7 @@ const App = () => {
 
 	// Add some state data propertie
 	const [name, setName] = useState('');
-	const [amount, setAmount] = useState(0.03);
+	const [amount, setAmount] = useState(0.07);
   	const [currentAccount, setCurrentAccount] = useState('');
 	const [network, setNetwork] = useState('');
 	const [bg, setBg] = useState('');
@@ -281,7 +281,7 @@ const App = () => {
 
 				console.log("network", network)
 
-				if (Number(amount) >= 0.01) {
+				if (Number(amount) >= 0.07) {
 
 					const contract = new ethers.Contract(CONTRACT_ADDRESS, ethContractAbi.abi, signer);			
 					const NFTnameId = Math.floor(Math.random()*150) + 1;
@@ -312,8 +312,8 @@ const App = () => {
 
 				} else {
 
-					setErrorMessage('Minimum ETH is 0.01');
-					console.log("Minimum ETH is 0.01");
+					setErrorMessage('Minimum ETH is 0.07');
+					console.log("Minimum ETH is 0.07");
 
 				}
 
@@ -439,7 +439,7 @@ const App = () => {
 				<div className="button-container">
 					{/* <input type="file" onChange={(event)=>setFile(event.target.files[0])}/> */}
 					<button className='cta-button mint-button' onClick={donateAmount}>
-						{`Donate ${amount} ETH`}
+						{`Donate ${amount} ETH & mint NFT`}
 					</button>
 				</div>
 			</div>
@@ -510,7 +510,7 @@ const App = () => {
 				</div>
 				<div className="center">
 						<div className="title"><p className="blue">Ukraine</p><p className="yellow">Art</p><p className="yellow">Collective</p></div>
-						<p className="subtitle">Harnessing global creative power to support the Ukrainian people. When you donate, you get an NFT created by Ukrainian artists. We appreciate donation of any amount, with recommended minimum of 0.03 ETH</p>
+						<p className="subtitle">Harnessing global creative power to support the Ukrainian people. When you donate, you get an NFT created by Ukrainian artists. We appreciate donation of any amount, with recommended minimum of 0.07 ETH</p>
 						{/* Hide the connect button if currentAccount isn't empty*/}
 						{!currentAccount && renderNotConnectedContainer()}
 						{currentAccount && renderWhenWalletConnected()}
