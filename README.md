@@ -1,5 +1,4 @@
 ## UkraineArtCo 
-www.ukraineartco.org
 
 ### Idea
 Charitable NFT sales
