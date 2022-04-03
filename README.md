@@ -1,4 +1,5 @@
 ## UkraineArtCo 
+www.ukraineartco.org
 
 ### Idea
 Charitable NFT sales
@@ -12,6 +13,4 @@ Charitable NFT sales
 - Solidity
 - JavaScript
 
-### GitBook Link
-https://rovor7.gitbook.io/ukraineartco/
 
