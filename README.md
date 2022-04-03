@@ -8,7 +8,7 @@ Charitable NFT sales
 - Node.js
 - Hardhat
 
-### Languages
+### Language
 - Solidity
 - JavaScript
 
